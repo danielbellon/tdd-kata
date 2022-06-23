@@ -1,0 +1,50 @@
+version = '1.0.0'
+group = 'com.appgate.dtp'
+description = 'TDD Dojo'
+
+allprojects {
+    apply plugin: JavaPlugin
+
+    version getVersion()
+    group getGroup()
+
+    dependencies {
+        implementation libs.slf4j
+        implementation libs.jodatime
+        testImplementation libs.bundles.test
+        compileOnly libs.bundles.annotation
+        annotationProcessor libs.bundles.annotation
+    }
+
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+    }
+
+    test {
+        useJUnitPlatform {
+            excludeTags 'IntegrationTest'
+        }
+        testLogging {
+            outputs.upToDateWhen { false }
+            events 'passed', 'skipped', 'failed'
+        }
+    }
+
+    task integrationTest(type: Test) {
+        description = 'Runs the integration tests'
+        group = 'verification'
+
+        useJUnitPlatform {
+            excludeTags 'UnitTest'
+            includeTags 'IntegrationTest'
+        }
+        testLogging {
+            outputs.upToDateWhen { false }
+            events 'passed', 'skipped', 'failed'
+        }
+
+        mustRunAfter test
+    }
+}

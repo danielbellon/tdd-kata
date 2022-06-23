@@ -1,0 +1,44 @@
+rootProject.name = 'tdd-dojo'
+
+include 'bowling-game'
+
+dependencyResolutionManagement {
+
+    repositories {
+        mavenCentral()
+    }
+
+    versionCatalogs {
+        libs {
+
+            library 'guava', 'com.google.guava', 'guava' version "$guavaVersion"
+            library 'httpcore', 'org.apache.httpcomponents', 'httpcore' version "$httpcoreVersion"
+            library 'httpclient', 'org.apache.httpcomponents', 'httpclient' version "$httpclientVersion"
+            library 'apache-commons-lang', 'org.apache.commons', 'commons-lang3' version "$commonslangVersion"
+            library 'apache-commons-math', 'org.apache.commons', 'commons-math3' version "$commonsmathVersion"
+            library 'slf4j', 'org.slf4j', 'slf4j-api' version "$slf4jVersion"
+            library 'jodatime', 'joda-time', 'joda-time' version "$jodatimeVersion"
+            library 'lombok', 'org.projectlombok', 'lombok' version "$lombokVersion"
+
+            // Validation libraries
+            library 'validation-api', 'javax.validation', 'validation-api' version "$validationApiVersion"
+            library 'hibernate-validator', 'org.hibernate.validator', 'hibernate-validator' version "$hibernateValidatorVersion"
+
+            // Tests
+            library 'vavr-test', 'io.vavr', 'vavr-test' version "$vavrTestVersion"
+            library 'faker', 'com.github.javafaker', 'javafaker' version "$javaFakerVersion"
+            library 'mockito-inline', 'org.mockito', 'mockito-inline' version "$mockitoInline"
+            library 'testcontainers-junit', 'org.testcontainers', 'junit-jupiter' version "$testContainersVersion"
+            library 'junit-api', 'org.junit.jupiter', 'junit-jupiter-api' version "$junitVersion"
+            library 'junit-engine', 'org.junit.jupiter', 'junit-jupiter-engine' version "$junitVersion"
+            library 'junit-params', 'org.junit.jupiter', 'junit-jupiter-params' version "$junitVersion"
+            library 'assertj', 'org.assertj', 'assertj-core' version "$assertjVersion"
+
+            // Bundles
+            bundle 'annotation', ['lombok']
+            bundle 'test', ['testcontainers-junit', 'vavr-test', 'faker', 'mockito-inline', 'junit-api', 'junit-engine', 'junit-params', 'assertj']
+            bundle 'validation', ['validation-api', 'hibernate-validator']
+            bundle 'apachecommons', ['apache-commons-lang', 'apache-commons-math']
+        }
+    }
+}

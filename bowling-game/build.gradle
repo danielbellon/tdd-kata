@@ -1,0 +1,6 @@
+dependencies {
+    implementation libs.guava
+    implementation libs.httpcore
+    implementation libs.httpclient
+    implementation libs.bundles.apachecommons
+}
