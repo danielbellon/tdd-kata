@@ -43,9 +43,9 @@ public class Game {
     }
 
     private boolean isPlusPending() {
-        return this.pendingPlusBySpire &&
-            this.turnPendingPlusByStrikeA == 0 &&
-            this.turnPendingPlusByStrikeB == 0;
+        return this.pendingPlusBySpire ||
+            this.turnPendingPlusByStrikeA != 0 ||
+            this.turnPendingPlusByStrikeB != 0;
     }
 
     private void actionsBySecondRoll(int pinsKnockedDown) {
@@ -66,12 +66,23 @@ public class Game {
         assignPlusByStrikeA(pinsKnockedDown);
         assignPlusByStrikeB(pinsKnockedDown);
         assignPlusBySpire(pinsKnockedDown);
+        assignPlusByExtraBall();
         if (pinsKnockedDown == NUMBER_OF_PINS) {
             selectMemoryToStrike();
             setRoll(FIRST_ROLL);
             incrementRound();
         } else {
             setRoll(SECOND_ROLL);
+        }
+    }
+
+    private void assignPlusByExtraBall() {
+        if (round == 10) {
+            actualPlus += plusByStrikeA + plusByStrikeB;
+            plusByStrikeA = 0;
+            plusByStrikeB = 0;
+            turnPendingPlusByStrikeA = 0;
+            turnPendingPlusByStrikeB = 0;
         }
     }
 
