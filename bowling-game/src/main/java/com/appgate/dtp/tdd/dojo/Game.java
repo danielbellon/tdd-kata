@@ -9,8 +9,10 @@ public class Game {
     private int roll;
     private int pinsUps;
     private boolean pendingPlusBySpire = false;
-    private int turnPendingPlusByStrike;
-    private int plusByStrike;
+    private int turnPendingPlusByStrikeA;
+    private int turnPendingPlusByStrikeB;
+    private int plusByStrikeA;
+    private int plusByStrikeB;
     private int actualPlus;
 
     public int score() {
@@ -34,14 +36,19 @@ public class Game {
         setRoll(FIRST_ROLL);
         validateRemainingPins(pinsKnockedDown);
         validatePlusBySpire(pinsKnockedDown);
-        assignPlusByStrike(pinsKnockedDown);
+        assignPlusByStrikeA(pinsKnockedDown);
     }
 
     private void actionsByFirstRoll(int pinsKnockedDown) {
         initPinsUp();
-        assignPlusByStrike(pinsKnockedDown);
+        assignPlusByStrikeA(pinsKnockedDown);
+        assignPlusByStrikeB(pinsKnockedDown);
         if (pinsKnockedDown == NUMBER_OF_PINS) {
-            turnPendingPlusByStrike += 2;
+            if (turnPendingPlusByStrikeA == 0) {
+                turnPendingPlusByStrikeA = 2;
+            } else {
+                turnPendingPlusByStrikeB = 2;
+            }
             setRoll(FIRST_ROLL);
         } else {
             setRoll(SECOND_ROLL);
@@ -49,13 +56,24 @@ public class Game {
         assignPlusBySpire(pinsKnockedDown);
     }
 
-    private void assignPlusByStrike(int pinsKnockedDown) {
-        if (turnPendingPlusByStrike > 0) {
-            this.plusByStrike += pinsKnockedDown;
-            turnPendingPlusByStrike--;
-            if (turnPendingPlusByStrike == 0) {
-                actualPlus = plusByStrike;
-                plusByStrike = 0;
+    private void assignPlusByStrikeB(int pinsKnockedDown) {
+        if (turnPendingPlusByStrikeB > 0) {
+            this.plusByStrikeB += pinsKnockedDown;
+            turnPendingPlusByStrikeB--;
+            if (turnPendingPlusByStrikeB == 0) {
+                actualPlus = plusByStrikeB;
+                plusByStrikeB = 0;
+            }
+        }
+    }
+
+    private void assignPlusByStrikeA(int pinsKnockedDown) {
+        if (turnPendingPlusByStrikeA > 0) {
+            this.plusByStrikeA += pinsKnockedDown;
+            turnPendingPlusByStrikeA--;
+            if (turnPendingPlusByStrikeA == 0) {
+                actualPlus = plusByStrikeA;
+                plusByStrikeA = 0;
             }
         }
     }
