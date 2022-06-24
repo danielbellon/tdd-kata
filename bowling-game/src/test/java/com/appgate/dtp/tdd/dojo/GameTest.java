@@ -187,11 +187,27 @@ class GameTest {
         for (int i = 0; i < 19; i++) {
             game.roll(4);
         }
-        game.roll(6);
+        game.roll(6);//last ball
 
-        game.roll(7);
+        game.roll(7);//extra ball
 
         int scoreExpected = 19 * 4 + 6 + 7 + (7);
+        Assertions.assertEquals(scoreExpected, game.score());
+    }
+
+    @Test
+    @Order(15)
+    @DisplayName("should return score when intent 1 roll after 10 frames with extra ball by strike")
+    void shouldReturnScoreWhenIntentOneRollAfterTenFramesWithExtraBallByStrike() {
+//        When
+        for (int i = 0; i < 18; i++) {
+            game.roll(4);
+        }
+        game.roll(10);//last ball
+
+        game.roll(5);// extra ball
+
+        int scoreExpected = 18 * 4 + 10 + 5 + (5);
         Assertions.assertEquals(scoreExpected, game.score());
     }
 }
