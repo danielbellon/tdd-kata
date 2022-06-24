@@ -161,4 +161,21 @@ class GameTest {
         int scoreExpected = 10 + 10 + 5 + (10 + 5) + 4 + (5 + 4);
         Assertions.assertEquals(scoreExpected, game.score());
     }
+
+    @Test
+    @Order(13)
+    @DisplayName("should return error when intent 1 roll after 10 simple frames")
+    void shouldReturnErrorWhenIntentOneRollAfterTenSimpleFrames() {
+//        When
+        for (int i = 0; i < 20; i++) {
+            game.roll(4);
+        }
+        Assertions.assertThrows(GameIsOver.class,
+            () -> {
+                game.roll(4);
+            });
+
+        int scoreExpected = 80;
+        Assertions.assertEquals(scoreExpected, game.score());
+    }
 }
