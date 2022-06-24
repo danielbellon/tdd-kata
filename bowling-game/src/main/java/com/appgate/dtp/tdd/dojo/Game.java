@@ -13,17 +13,33 @@ public class Game {
     public void roll(int pinsKnockedDown) {
         validatePinsLimitUp(pinsKnockedDown);
         validatePinsLimitDown(pinsKnockedDown);
-        if (roll == 0) {
-            pinsUps = 10;
-            roll++;
-        } else if (roll == 1) {
-            roll = 0;
-            if (pinsKnockedDown > pinsUps) {
-                throw new PinsKnockedDownInvalidInSecondRoll();
-            }
+        if (isRoll(0)) {
+            initPinsUp();
+            setRoll(1);
+        } else if (isRoll(1)) {
+            setRoll(0);
+            validateRemainingPins(pinsKnockedDown);
         }
         score += pinsKnockedDown;
         pinsUps -= pinsKnockedDown;
+    }
+
+    private void setRoll(int newRoll) {
+        roll = newRoll;
+    }
+
+    private boolean isRoll(int i) {
+        return roll == i;
+    }
+
+    private void initPinsUp() {
+        pinsUps = 10;
+    }
+
+    private void validateRemainingPins(int pinsKnockedDown) {
+        if (pinsKnockedDown > pinsUps) {
+            throw new PinsKnockedDownInvalidInSecondRoll();
+        }
     }
 
     private void validatePinsLimitDown(int pinsKnockedDown) {
