@@ -6,11 +6,6 @@ import org.junit.jupiter.api.*;
 class GameTest {
     Game game;
 
-    @Test
-    @DisplayName("readable test name")
-    void shouldDoSomething() {
-
-    }
     @BeforeEach
     void init(){
         game = new Game();
