@@ -14,12 +14,14 @@ public class Game {
     private int plusByStrikeA;
     private int plusByStrikeB;
     private int actualPlus;
+    private int round;
 
     public int score() {
         return score;
     }
 
     public void roll(int pinsKnockedDown) {
+        validateGameOver();
         validatePinsLimitUp(pinsKnockedDown);
         validatePinsLimitDown(pinsKnockedDown);
         if (isRoll(FIRST_ROLL)) {
@@ -32,12 +34,27 @@ public class Game {
         actualPlus = 0;
     }
 
+    private void validateGameOver() {
+        if (round == 10) {
+            if (!this.pendingPlusBySpire &&
+                this.turnPendingPlusByStrikeA == 0 &&
+                this.turnPendingPlusByStrikeB == 0) {
+                throw new GameIsOver();
+            }
+        }
+    }
+
     private void actionsBySecondRoll(int pinsKnockedDown) {
         validateRemainingPins(pinsKnockedDown);
         setRoll(FIRST_ROLL);
+        incrementRound();
         verifyPlusBySpire(pinsKnockedDown);
         assignPlusByStrikeA(pinsKnockedDown);
         assignPlusByStrikeB(pinsKnockedDown);
+    }
+
+    private void incrementRound() {
+        round++;
     }
 
     private void actionsByFirstRoll(int pinsKnockedDown) {
@@ -48,6 +65,7 @@ public class Game {
         if (pinsKnockedDown == NUMBER_OF_PINS) {
             selectMemoryToStrike();
             setRoll(FIRST_ROLL);
+            incrementRound();
         } else {
             setRoll(SECOND_ROLL);
         }
