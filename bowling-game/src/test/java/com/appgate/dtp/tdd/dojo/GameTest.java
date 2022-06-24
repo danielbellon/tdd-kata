@@ -147,4 +147,18 @@ class GameTest {
         int scoreExpected = 10 + 10 + 10 + (10 + 10);
         Assertions.assertEquals(scoreExpected, game.score());
     }
+
+    @Test
+    @Order(12)
+    @DisplayName("should return score by 2 strike in row with + 2 roll")
+    void shouldReturnScoreBy2StrikeInRowAnd2Roll() {
+//        When
+        game.roll(10);
+        game.roll(10);
+        game.roll(5);
+        game.roll(4);
+
+        int scoreExpected = 10 + 10 + 5 + (10 + 5) + 4 + (5 + 4);
+        Assertions.assertEquals(scoreExpected, game.score());
+    }
 }
