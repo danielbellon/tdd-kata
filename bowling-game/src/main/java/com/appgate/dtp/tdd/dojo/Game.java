@@ -40,6 +40,9 @@ public class Game {
                 throw new GameIsOver();
             }
         }
+        if (round >= 11) {
+            throw new GameIsOver();
+        }
     }
 
     private boolean isPlusPending() {
