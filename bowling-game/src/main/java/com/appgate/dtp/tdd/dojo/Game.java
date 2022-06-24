@@ -5,6 +5,8 @@ public class Game {
     private int score;
     private int roll;
     private int pinsUps;
+    private boolean pendingPlusBySpire = false;
+    private int actualPlus;
 
     public int score() {
         return score;
@@ -16,11 +18,15 @@ public class Game {
         if (isRoll(0)) {
             initPinsUp();
             setRoll(1);
+            if (pendingPlusBySpire) {
+                actualPlus += pinsKnockedDown;
+            }
         } else if (isRoll(1)) {
             setRoll(0);
             validateRemainingPins(pinsKnockedDown);
+            pendingPlusBySpire = pinsUps == pinsKnockedDown;
         }
-        score += pinsKnockedDown;
+        score += pinsKnockedDown + actualPlus;
         pinsUps -= pinsKnockedDown;
     }
 
