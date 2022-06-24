@@ -121,4 +121,17 @@ class GameTest {
         int scoreExpected = 5 + 5 + (3 + 3) + 3;
         Assertions.assertEquals(scoreExpected, game.score());
     }
+
+    @Test
+    @Order(10)
+    @DisplayName("should return score with plus by strike in roll 1 and not plus in next 2 rolls")
+    void shouldReturnScoreWithPlusByStrikeInRollOneAndNotPlusInNextTwoRolls() {
+//        When
+        game.roll(10);
+        game.roll(5);
+        game.roll(3);
+
+        int scoreExpected = 10 + 5 + 3 + (5 + 3);
+        Assertions.assertEquals(scoreExpected, game.score());
+    }
 }
