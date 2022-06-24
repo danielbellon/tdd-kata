@@ -3,6 +3,8 @@ package com.appgate.dtp.tdd.dojo;
 public class Game {
 
     private int score;
+    private int roll;
+    private int pinsUps;
 
     public int score() {
         return score;
@@ -11,7 +13,17 @@ public class Game {
     public void roll(int pinsKnockedDown) {
         validatePinsLimitUp(pinsKnockedDown);
         validatePinsLimitDown(pinsKnockedDown);
+        if (roll == 0) {
+            pinsUps = 10;
+            roll++;
+        } else if (roll == 1) {
+            roll = 0;
+            if (pinsKnockedDown > pinsUps) {
+                throw new PinsKnockedDownInvalidInSecondRoll();
+            }
+        }
         score += pinsKnockedDown;
+        pinsUps -= pinsKnockedDown;
     }
 
     private void validatePinsLimitDown(int pinsKnockedDown) {
