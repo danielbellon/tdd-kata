@@ -33,9 +33,9 @@ public class Game {
     }
 
     private void actionsBySecondRoll(int pinsKnockedDown) {
-        setRoll(FIRST_ROLL);
         validateRemainingPins(pinsKnockedDown);
-        validatePlusBySpire(pinsKnockedDown);
+        setRoll(FIRST_ROLL);
+        verifyPlusBySpire(pinsKnockedDown);
         assignPlusByStrikeA(pinsKnockedDown);
         assignPlusByStrikeB(pinsKnockedDown);
     }
@@ -44,13 +44,13 @@ public class Game {
         initPinsUp();
         assignPlusByStrikeA(pinsKnockedDown);
         assignPlusByStrikeB(pinsKnockedDown);
+        assignPlusBySpire(pinsKnockedDown);
         if (pinsKnockedDown == NUMBER_OF_PINS) {
             selectMemoryToStrike();
             setRoll(FIRST_ROLL);
         } else {
             setRoll(SECOND_ROLL);
         }
-        assignPlusBySpire(pinsKnockedDown);
     }
 
     private void selectMemoryToStrike() {
@@ -83,7 +83,7 @@ public class Game {
         }
     }
 
-    private void validatePlusBySpire(int pinsKnockedDown) {
+    private void verifyPlusBySpire(int pinsKnockedDown) {
         pendingPlusBySpire = pinsUps == pinsKnockedDown;
     }
 
