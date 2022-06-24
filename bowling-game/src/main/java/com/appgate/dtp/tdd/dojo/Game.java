@@ -37,6 +37,7 @@ public class Game {
         validateRemainingPins(pinsKnockedDown);
         validatePlusBySpire(pinsKnockedDown);
         assignPlusByStrikeA(pinsKnockedDown);
+        assignPlusByStrikeB(pinsKnockedDown);
     }
 
     private void actionsByFirstRoll(int pinsKnockedDown) {
