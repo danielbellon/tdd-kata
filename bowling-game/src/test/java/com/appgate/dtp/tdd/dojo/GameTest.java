@@ -82,4 +82,16 @@ class GameTest {
 
         Assertions.assertEquals(8, game.score());
     }
+
+    @Test
+    @Order(7)
+    @DisplayName("should return score without plus when pins knocked down is valid in roll 3")
+    void shouldReturnScoreWhenPinsKnockedDownIsValidInRoll3() {
+//        When
+        game.roll(5);
+        game.roll(3);
+        game.roll(3);
+
+        Assertions.assertEquals(11, game.score());
+    }
 }
