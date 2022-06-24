@@ -6,6 +6,8 @@ public class Game {
     private int roll;
     private int pinsUps;
     private boolean pendingPlusBySpire = false;
+    private int turnPendingPlusByStrike;
+    private int plusByStrike;
     private int actualPlus;
 
     public int score() {
@@ -17,16 +19,34 @@ public class Game {
         validatePinsLimitDown(pinsKnockedDown);
         if (isRoll(0)) {
             initPinsUp();
-            setRoll(1);
+            assignPlusByStrike(pinsKnockedDown);
+            if (pinsKnockedDown == 10) {
+                turnPendingPlusByStrike += 2;
+                setRoll(0);
+            } else {
+                setRoll(1);
+            }
             assignPlusBySpire(pinsKnockedDown);
         } else if (isRoll(1)) {
             setRoll(0);
             validateRemainingPins(pinsKnockedDown);
             validatePlusBySpire(pinsKnockedDown);
+            assignPlusByStrike(pinsKnockedDown);
         }
         score += pinsKnockedDown + actualPlus;
         pinsUps -= pinsKnockedDown;
         actualPlus = 0;
+    }
+
+    private void assignPlusByStrike(int pinsKnockedDown) {
+        if (turnPendingPlusByStrike > 0) {
+            this.plusByStrike += pinsKnockedDown;
+            turnPendingPlusByStrike--;
+            if (turnPendingPlusByStrike == 0) {
+                actualPlus = plusByStrike;
+                plusByStrike = 0;
+            }
+        }
     }
 
     private void validatePlusBySpire(int pinsKnockedDown) {
