@@ -59,4 +59,16 @@ class GameTest {
         game.roll(5);
         Assertions.assertEquals(5, game.score());
     }
+
+    @Test
+    @Order(5)
+    @DisplayName("should return error when pins knocked down is invalid in roll 2")
+    void shouldReturnErrorWhenPinsKnockedDownIsInvalidInRoll2() {
+//        When
+        game.roll(5);
+        Assertions.assertThrows(PinsKnockedDownInvalidInSecondRoll.class,
+            () -> {
+                game.roll(8);
+            });
+    }
 }
