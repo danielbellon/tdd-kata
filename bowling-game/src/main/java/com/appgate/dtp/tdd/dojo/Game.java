@@ -36,12 +36,16 @@ public class Game {
 
     private void validateGameOver() {
         if (round == 10) {
-            if (!this.pendingPlusBySpire &&
-                this.turnPendingPlusByStrikeA == 0 &&
-                this.turnPendingPlusByStrikeB == 0) {
+            if (!isPlusPending()) {
                 throw new GameIsOver();
             }
         }
+    }
+
+    private boolean isPlusPending() {
+        return this.pendingPlusBySpire &&
+            this.turnPendingPlusByStrikeA == 0 &&
+            this.turnPendingPlusByStrikeB == 0;
     }
 
     private void actionsBySecondRoll(int pinsKnockedDown) {
