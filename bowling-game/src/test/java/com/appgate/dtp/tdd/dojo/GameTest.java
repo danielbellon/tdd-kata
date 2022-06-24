@@ -210,4 +210,17 @@ class GameTest {
         int scoreExpected = 18 * 4 + 10 + 5 + (5);
         Assertions.assertEquals(scoreExpected, game.score());
     }
+
+    @Test
+    @Order(16)
+    @DisplayName("should return score with perfect game")
+    void shouldReturnScoreWithPerfectGame() {
+//        When
+        for (int i = 0; i < 11; i++) {
+            game.roll(10);
+        }
+
+        int scoreExpected = 300;
+        Assertions.assertEquals(scoreExpected, game.score());
+    }
 }
