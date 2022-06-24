@@ -18,16 +18,25 @@ public class Game {
         if (isRoll(0)) {
             initPinsUp();
             setRoll(1);
-            if (pendingPlusBySpire) {
-                actualPlus += pinsKnockedDown;
-            }
+            assignPlusBySpire(pinsKnockedDown);
         } else if (isRoll(1)) {
             setRoll(0);
             validateRemainingPins(pinsKnockedDown);
-            pendingPlusBySpire = pinsUps == pinsKnockedDown;
+            validatePlusBySpire(pinsKnockedDown);
         }
         score += pinsKnockedDown + actualPlus;
         pinsUps -= pinsKnockedDown;
+        actualPlus = 0;
+    }
+
+    private void validatePlusBySpire(int pinsKnockedDown) {
+        pendingPlusBySpire = pinsUps == pinsKnockedDown;
+    }
+
+    private void assignPlusBySpire(int pinsKnockedDown) {
+        if (pendingPlusBySpire) {
+            actualPlus += pinsKnockedDown;
+        }
     }
 
     private void setRoll(int newRoll) {
