@@ -9,6 +9,10 @@ public class Game {
     }
 
     public void roll(int pinsKnockedDown) {
+        validatePinsLimitUp(pinsKnockedDown);
+    }
+
+    private void validatePinsLimitUp(int pinsKnockedDown) {
         if (pinsKnockedDown > 10) {
             throw new IllegalArgumentException();
         }
