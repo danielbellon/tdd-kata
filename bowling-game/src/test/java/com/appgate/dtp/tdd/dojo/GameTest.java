@@ -223,4 +223,18 @@ class GameTest {
         int scoreExpected = 300;
         Assertions.assertEquals(scoreExpected, game.score());
     }
+
+    @Test
+    @Order(16)
+    @DisplayName("should return game over when intent 1 roll after perfect game")
+    void shouldReturnGameOverWhenIntentOneRollAfterPerfectGame() {
+//        When
+        shouldReturnScoreWithPerfectGame();
+        Assertions.assertThrows(GameIsOver.class,
+            () -> {
+                game.roll(4);
+            });
+        int scoreExpected = 300;
+        Assertions.assertEquals(scoreExpected, game.score());
+    }
 }
