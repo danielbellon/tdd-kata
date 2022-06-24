@@ -2,6 +2,9 @@ package com.appgate.dtp.tdd.dojo;
 
 public class Game {
 
+    public static final int NUMBER_OF_PINS = 10;
+    public static final int FIRST_ROLL = 0;
+    public static final int SECOND_ROLL = 1;
     private int score;
     private int roll;
     private int pinsUps;
@@ -17,25 +20,33 @@ public class Game {
     public void roll(int pinsKnockedDown) {
         validatePinsLimitUp(pinsKnockedDown);
         validatePinsLimitDown(pinsKnockedDown);
-        if (isRoll(0)) {
-            initPinsUp();
-            assignPlusByStrike(pinsKnockedDown);
-            if (pinsKnockedDown == 10) {
-                turnPendingPlusByStrike += 2;
-                setRoll(0);
-            } else {
-                setRoll(1);
-            }
-            assignPlusBySpire(pinsKnockedDown);
-        } else if (isRoll(1)) {
-            setRoll(0);
-            validateRemainingPins(pinsKnockedDown);
-            validatePlusBySpire(pinsKnockedDown);
-            assignPlusByStrike(pinsKnockedDown);
+        if (isRoll(FIRST_ROLL)) {
+            actionsByFirstRoll(pinsKnockedDown);
+        } else if (isRoll(SECOND_ROLL)) {
+            actionsBySecondRoll(pinsKnockedDown);
         }
         score += pinsKnockedDown + actualPlus;
         pinsUps -= pinsKnockedDown;
         actualPlus = 0;
+    }
+
+    private void actionsBySecondRoll(int pinsKnockedDown) {
+        setRoll(FIRST_ROLL);
+        validateRemainingPins(pinsKnockedDown);
+        validatePlusBySpire(pinsKnockedDown);
+        assignPlusByStrike(pinsKnockedDown);
+    }
+
+    private void actionsByFirstRoll(int pinsKnockedDown) {
+        initPinsUp();
+        assignPlusByStrike(pinsKnockedDown);
+        if (pinsKnockedDown == NUMBER_OF_PINS) {
+            turnPendingPlusByStrike += 2;
+            setRoll(FIRST_ROLL);
+        } else {
+            setRoll(SECOND_ROLL);
+        }
+        assignPlusBySpire(pinsKnockedDown);
     }
 
     private void assignPlusByStrike(int pinsKnockedDown) {
@@ -68,7 +79,7 @@ public class Game {
     }
 
     private void initPinsUp() {
-        pinsUps = 10;
+        pinsUps = NUMBER_OF_PINS;
     }
 
     private void validateRemainingPins(int pinsKnockedDown) {
@@ -84,7 +95,7 @@ public class Game {
     }
 
     private void validatePinsLimitUp(int pinsKnockedDown) {
-        if (pinsKnockedDown > 10) {
+        if (pinsKnockedDown > NUMBER_OF_PINS) {
             throw new IllegalArgumentException();
         }
     }
