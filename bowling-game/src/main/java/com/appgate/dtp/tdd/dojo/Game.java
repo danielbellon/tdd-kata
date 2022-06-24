@@ -44,16 +44,20 @@ public class Game {
         assignPlusByStrikeA(pinsKnockedDown);
         assignPlusByStrikeB(pinsKnockedDown);
         if (pinsKnockedDown == NUMBER_OF_PINS) {
-            if (turnPendingPlusByStrikeA == 0) {
-                turnPendingPlusByStrikeA = 2;
-            } else {
-                turnPendingPlusByStrikeB = 2;
-            }
+            selectMemoryToStrike();
             setRoll(FIRST_ROLL);
         } else {
             setRoll(SECOND_ROLL);
         }
         assignPlusBySpire(pinsKnockedDown);
+    }
+
+    private void selectMemoryToStrike() {
+        if (turnPendingPlusByStrikeA == 0) {
+            turnPendingPlusByStrikeA = 2;
+        } else {
+            turnPendingPlusByStrikeB = 2;
+        }
     }
 
     private void assignPlusByStrikeB(int pinsKnockedDown) {
