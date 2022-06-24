@@ -28,9 +28,21 @@ class GameTest {
 //        Then
         Assertions.assertEquals(0, score);
     }
+
     /**
      * Invalid inputs
      */
+    @Test
+    @Order(2)
+    @DisplayName("should return error when the number of pins knocked down is more than limit")
+    void shouldReturnErrorWhenNumberOfPinsKnockedDownIsMoreThanLimit(){
+        Game game = new Game();
+
+//        When
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            game.roll(11);
+        });
+    }
     /**
      *
      */
