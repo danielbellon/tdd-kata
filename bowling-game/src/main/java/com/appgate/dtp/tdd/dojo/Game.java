@@ -11,6 +11,7 @@ public class Game {
     public void roll(int pinsKnockedDown) {
         validatePinsLimitUp(pinsKnockedDown);
         validatePinsLimitDown(pinsKnockedDown);
+        score += pinsKnockedDown;
     }
 
     private void validatePinsLimitDown(int pinsKnockedDown) {
