@@ -7,5 +7,11 @@ public class Game {
     public int score() {
         return score;
     }
+
+    public void roll(int pinsKnockedDown) {
+        if (pinsKnockedDown > 10) {
+            throw new IllegalArgumentException();
+        }
+    }
 }
 
