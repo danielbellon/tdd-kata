@@ -7,7 +7,7 @@ class GameTest {
     Game game;
 
     @BeforeEach
-    void init(){
+    void init() {
         game = new Game();
     }
 
@@ -31,22 +31,32 @@ class GameTest {
     @Test
     @Order(2)
     @DisplayName("should return error when the number of pins knocked down is more than limit")
-    void shouldReturnErrorWhenNumberOfPinsKnockedDownIsMoreThanLimit(){
+    void shouldReturnErrorWhenNumberOfPinsKnockedDownIsMoreThanLimit() {
 //        When
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
             game.roll(11);
         });
     }
+
     @Test
     @Order(3)
     @DisplayName("should return error when the number of pins knocked down is under limit")
-    void shouldReturnErrorWhenNumberOfPinsKnockedDownIsUnderLimit(){
+    void shouldReturnErrorWhenNumberOfPinsKnockedDownIsUnderLimit() {
 //        When
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
             game.roll(-1);
         });
     }
+
     /**
-     *
+     * functionality
      */
+    @Test
+    @Order(4)
+    @DisplayName("should return score when roll a valid pins knocked down")
+    void shouldReturnScoreWhenRollAndPinsKnockedDownIsValid() {
+//        When
+        game.roll(5);
+        Assertions.assertEquals(5, game.score());
+    }
 }
