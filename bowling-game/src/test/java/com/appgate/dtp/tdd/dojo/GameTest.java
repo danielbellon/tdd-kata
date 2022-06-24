@@ -94,4 +94,17 @@ class GameTest {
 
         Assertions.assertEquals(11, game.score());
     }
+
+    @Test
+    @Order(8)
+    @DisplayName("should return score with plus by spare in roll 2")
+    void shouldReturnScoreWithPlusBySpareInRoll2() {
+//        When
+        game.roll(5);
+        game.roll(5);
+        game.roll(3);
+
+        int scoreExpected = 5 + 5 + 3 + 3;
+        Assertions.assertEquals(scoreExpected, game.score());
+    }
 }
