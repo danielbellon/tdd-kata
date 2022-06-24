@@ -71,4 +71,15 @@ class GameTest {
                 game.roll(8);
             });
     }
+
+    @Test
+    @Order(6)
+    @DisplayName("should return score when pins knocked down is valid in roll 2")
+    void shouldReturnScoreWhenPinsKnockedDownIsValidInRoll2() {
+//        When
+        game.roll(5);
+        game.roll(3);
+
+        Assertions.assertEquals(8, game.score());
+    }
 }
